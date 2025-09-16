@@ -10,8 +10,10 @@ trigger UpdateWebinarParticipantsTrigger on Webinar_Member__c (after insert, aft
             webinarIds.add(wm.Webinar__c);
         }
         
-        // Handle updates where the Webinar__c is changed
+        
         if (Trigger.isUpdate) {
+            //If its an update, then we need to check if the webinar has changed
+            //If it has, then we need to add both the old and new webinar IDs to the set
             for (Integer i = 0; i < Trigger.new.size(); i++) {
                 Webinar_Member__c newMember = Trigger.new[i];
                 Webinar_Member__c oldMember = Trigger.old[i];
@@ -39,6 +41,7 @@ trigger UpdateWebinarParticipantsTrigger on Webinar_Member__c (after insert, aft
         for (AggregateResult ar : participantCounts) {
             if ((Id) ar.get('Webinar__c') == w.Id) {
                 participantCount = ((Decimal) ar.get('participantCount')).intValue();
+                //participantCount = (Integer) ar.get('participantCount');
                 break;
             }
         }
