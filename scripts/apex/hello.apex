@@ -1,10 +1,30 @@
-// Use .apex files to store anonymous Apex.
-// You can execute anonymous Apex in VS Code by selecting the
-//     apex text and running the command:
-//     SFDX: Execute Anonymous Apex with Currently Selected Text
-// You can also execute the entire file by running the command:
-//     SFDX: Execute Anonymous Apex with Editor Contents
+@isTest
+public class MergeContactServiceTest {
+    void testMergeAccountsExample() {
+        // Create two contacts
+        Contact masterContact = new Contact(
+            FirstName = 'John',
+            LastName = 'Doe',
+            Email = 'john.doe@example.com'
+        );
+        insert masterContact;
 
-string tempvar = 'Enter_your_name_here';
-System.debug('Hello World!');
-System.debug('My name is ' + tempvar);
+        Contact duplicateContact = new Contact(
+            FirstName = 'John',
+            LastName = 'Doe',
+            Email = 'john.doe@example.com'
+        );
+        insert duplicateContact;
+
+        // Call the merge method
+        MergeContactService.mergeAccountsExample(masterContact, duplicateContact);
+
+        // Verify that the duplicate contact was merged
+        Contact mergedContact = [SELECT Id FROM Contact WHERE Id = :masterContact.Id];
+        System.assertNotEquals(null, mergedContact, 'Master contact should exist after merge.');
+
+        // Check that the duplicate contact no longer exists
+        List<Contact> duplicateContacts = [SELECT Id FROM Contact WHERE Id = :duplicateContact.Id];
+        System.assertEquals(0, duplicateContacts.size(), 'Duplicate contact should not exist after merge.');
+    }
+}
