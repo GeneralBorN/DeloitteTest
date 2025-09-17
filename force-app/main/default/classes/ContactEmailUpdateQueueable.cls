@@ -8,13 +8,13 @@ public class ContactEmailUpdateQueueable implements Queueable {
     
     public void execute(QueueableContext context) {
         // TODO: Query Contacts that need email updates
-        List<Contact> contacts = [SELECT Id, Email FROM Contact WHERE Id IN :contactIds];
+        List<Contact> contacts = [SELECT Id, FirstName, LastName FROM Contact WHERE Id IN :contactIds];
         
         // TODO: Loop through contacts and generate emails
         for(Contact cont : contacts){
             cont.Email=cont.FirstName + cont.LastName + '@example.com';
+            System.debug(cont.Email);
         }
-                
         // TODO: Update the contacts if the list is not empty
         if(!contacts.isEmpty()){
             update contacts;
