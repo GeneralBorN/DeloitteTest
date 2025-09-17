@@ -1,8 +1,8 @@
 public with sharing class Tasks1 {
     public interface IVehicle {
-        // TODO: Add method signature for startEngine() that returns String
+        //(Done) TODO: Add method signature for startEngine() that returns String
         String startEngine();
-        // TODO: Add method signature for getMaxSpeed() that returns Integer
+        //(Done) TODO: Add method signature for getMaxSpeed() that returns Integer
         Integer getMaxSpeed();
     }
 
@@ -35,11 +35,11 @@ public with sharing class Tasks1 {
         }
         
         public virtual String checkOil() {
-            // TODO: Return "Oil level is normal"
+            //(Done) TODO: Return "Oil level is normal"
             return 'Oil level is normal';
         }
         
-        // TODO: Add virtual method scheduleService() that returns "Service scheduled in 30 days"
+        //(Done) TODO: Add virtual method scheduleService() that returns "Service scheduled in 30 days"
         public virtual String scheduleService() {
             return 'Service scheduled in 30 days';
         }
@@ -54,28 +54,28 @@ public with sharing class Tasks1 {
         public Integer numDoors;
         
         public Car(String brand, String model, Integer doors) {
-            // TODO: Call parent constructor with brand, model, and "Gasoline" as fuelType
+            //(Done) TODO: Call parent constructor with brand, model, and "Gasoline" as fuelType
             super(brand, model, 'Gasoline');
             this.numDoors = doors;
         }
         
         public String startEngine() {
-            // TODO: Return "Car engine started with key"
+            //(Done) TODO: Return "Car engine started with key"
             return 'Car engine started with key';
         }
         
         public Integer getMaxSpeed() {
-            // TODO: Return 120 (mph)
+            //(Done) TODO: Return 120 (mph)
             return 120;
         }
         
         public override String getMaintenance() {
-            // TODO: Return maintenance info for cars
+            //(Done) TODO: Return maintenance info for cars
             return 'Car maintenance info: Check oil, check tires, check brakes';
         }
     }
 
-    // TODO: Create Motorcycle class that extends VehicleDesign and implements IVehicle
+    //(Done) TODO: Create Motorcycle class that extends VehicleDesign and implements IVehicle
     // - Constructor takes brand and model, calls parent with brand, model, and "Gasoline" as fuelType
     // - startEngine() returns "Motorcycle kicked to start"
     // - getMaxSpeed() returns 180
@@ -98,7 +98,7 @@ public with sharing class Tasks1 {
         }
     }
 
-    // TODO: Create Airplane class that extends BasicTransport and implements IVehicle
+    //(Done) TODO: Create Airplane class that extends BasicTransport and implements IVehicle
     // - Constructor takes model name and year, calls parent with year
     // - startEngine() returns "Broooooooom-poooooom"
     // - getMaxSpeed() returns 500
