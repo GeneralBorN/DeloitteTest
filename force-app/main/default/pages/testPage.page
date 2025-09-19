@@ -1,0 +1,5 @@
+<apex:page standardController="Contact" renderAs="pdf" showHeader="true">
+    <apex:pageBlock title="Header!">
+        <apex:detail subject="{!Contact.Id}" relatedList="false"/>
+    </apex:pageBlock>
+</apex:page>
