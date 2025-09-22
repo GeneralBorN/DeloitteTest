@@ -1,0 +1,41 @@
+<template>
+    <lightning-card title={title} class="slds-is-relative">
+        <lightning-spinner if:true={isLoading}></lightning-spinner>
+        <lightning-layout multiple-rows="true" class="slds-p-around_small">
+            <lightning-layout-item flexibility="auto" size="12">
+                <lightning-input label="Questionnaire Name" name="Name" onchange={handleInputChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" size="12">
+                <lightning-input label="Age" name="Age__c" type="number" min="0" onchange={handleInputChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" size="12">
+                <lightning-input label="Score (1-10)" name="Score__c" type="number" min="1" max="10" onchange={handleInputChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" size="12">
+                <lightning-input label="Attending" type="checkbox" name="Attending__c" checked onchange={handleInputChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" size="12">
+                <lightning-input label="Feedback" name="Feedback__c" onchange={handleInputChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" size="12">
+                <label class="slds-form-element__label">Would you recommend this webinar?</label>
+                <lightning-radio-group
+                    options={recommendOptions}
+                    name="Would_you_reccomend_this_Webinar__c"
+                    onchange={handleInputChange}
+                ></lightning-radio-group>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" size="12" if:true={showTellUsWhy}>
+                <lightning-input label="Tell us why" name="Tell_us_why__c" onchange={handleInputChange}></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" size="12">
+                <lightning-input label="Owner Id" name="OwnerId" value={ownerId} readonly></lightning-input>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-button-group slot="footer">
+            <lightning-button title="Submit" label="Submit" onclick={submitAnswer}></lightning-button>
+            <lightning-button title="Show Table" label="Show My Questionnaires" onclick={handleShowTable}></lightning-button>
+        </lightning-button-group>
+        <c-questionnaire-table if:true={showTable} questionnaires={questionnaires}></c-questionnaire-table>
+    </lightning-card>
+</template>

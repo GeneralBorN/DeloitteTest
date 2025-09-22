@@ -1,0 +1,30 @@
+<template>
+    <lightning-card title="Questionnaire Table">
+        <span if:true={error}>
+            {error}
+        </span>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered" if:true={isDataLoaded}>
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th scope="col">Name</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Attending</th>
+                    <th scope="col">Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={questionnaires} for:item="questionnaire">
+                    <tr key={questionnaire.Id}>
+                        <td>{questionnaire.Name}</td>
+                        <td>{questionnaire.OwnerName}</td>
+                        <td>{questionnaire.Age}</td>
+                        <td>{questionnaire.Attending}</td>
+                        <td>{questionnaire.Feedback}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <span if:true={isLoading}>Loading questionnaires...</span>
+    </lightning-card>
+</template>

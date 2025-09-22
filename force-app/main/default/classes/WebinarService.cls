@@ -85,6 +85,8 @@ global with sharing class WebinarService {
 }
 
 /* TESTING
+============================================================================================================================================================
+
 String baseUrl = URL.getOrgDomainUrl().toExternalForm();
 HttpRequest req = new HttpRequest();
 req.setEndpoint(baseUrl + '/services/apexrest/webinars/');
@@ -142,4 +144,5 @@ HttpResponse res = new Http().send(req);
 System.debug('Response Status: ' + res.getStatus());
 System.debug('Response Body: ' + res.getBody());
 
+============================================================================================================================================================
 */
