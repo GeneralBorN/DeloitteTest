@@ -1,0 +1,97 @@
+<template>
+    <lightning-card title="Team Ranking">
+        <div class="slds-p-horizontal_medium slds-p-vertical_small">
+            <lightning-input
+                type="search"
+                name="search"
+                label="Search Teams"
+                value={searchTerm}
+                onchange={handleSearchChange}
+                placeholder="Enter team name"
+            ></lightning-input>
+        </div>
+
+        <!-- Wrap table in scrollable container -->
+        <div class="slds-scrollable_x" style="overflow-x:auto;">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-m-around_medium" style="min-width:600px;">
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col" style="width:10%;">Position</th>
+                        <th scope="col" style="width:40%;">Team Name</th>
+                        <th scope="col" style="width:15%;">Employees</th>
+                        <th scope="col" style="width:20%;">Total Points</th>
+                        <th scope="col" style="width:15%;">Toggle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template if:true={teams.length}>
+                        <template for:each={teams} for:item="team">
+                            <!-- Team row -->
+                            <tr key={team.teamId}>
+                                <td>{team.position}</td>
+                                <td>{team.teamName}</td>
+                                <td>{team.numberOfEmployees}</td>
+                                <td>{team.totalPoints}</td>
+                                <td>
+                                    <button
+                                        class="slds-button slds-button_icon slds-button_icon-border-filled"
+                                        title="Expand/Collapse"
+                                        data-id={team.teamId}
+                                        onclick={toggleExpand}
+                                    >
+                                        <lightning-icon icon-name={team.iconName} alternative-text="Toggle"></lightning-icon>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- Expanded employee details row -->
+                            <template if:true={team.isExpanded}>
+                                <tr key={team.detailsKey}>
+                                    <td colspan="5">
+                                        <div class="slds-box slds-theme_default">
+                                            <p><strong>Employees in {team.teamName}:</strong></p>
+                                            <ul>
+                                                <template for:each={team.employees} for:item="emp">
+                                                    <li key={emp.employeeId}>
+                                                        {emp.employeeName} — Events: {emp.participatedEvents} — Points: {emp.totalPoints}
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </template>
+                    </template>
+
+                    <template if:false={teams.length}>
+                        <tr><td colspan="5">No teams found</td></tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination controls -->
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium slds-grid slds-grid_align-center">
+            <button class="slds-button slds-button_neutral" onclick={handlePrevious} disabled={isPreviousDisabled}>
+                &lt; Previous
+            </button>
+
+            <template for:each={paginationButtons} for:item="btn">
+                <button
+                    key={btn.page}
+                    class={btn.className}
+                    data-page={btn.page}
+                    onclick={goToPage}
+                >
+                    {btn.page}
+                </button>
+            </template>
+
+            <button class="slds-button slds-button_neutral" onclick={handleNext} disabled={isNextDisabled}>
+                Next &gt;
+            </button>
+        </div>
+
+    </lightning-card>
+</template>
